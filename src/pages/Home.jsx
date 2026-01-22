@@ -21,10 +21,10 @@ const Home = () => {
          <div className="grid lg:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 xl:grid-cols-5 sm:grid-cols-2 grid-cols-1 gap-6 mt-5">
           {products && products.map((product) => (
 
-            <div>
+            <div key={product.name}>
                 <Link to={`/product/${product.id}`}>
                 <div className="h-60 bg-zinc-100 rounded-md">
-                  <img src={product.image} alt={product.name} className='w-full h-full'/>
+                  <img src={`${product.image}`} alt={product.name} className='w-full h-full'/>
                 </div>
                 <div className="mt-3">
                   <p className="text-md text-left font-semibold">{product.name}</p>
