@@ -1,0 +1,13 @@
+services:
+  - type: static
+    name: furnico-tech-web
+    env: static
+    # If using Vite, use 'npm run build' and 'dist'
+    # If using Create React App, use 'npm run build' and 'build'
+    buildCommand: npm install && npm run build
+    publishPath: dist 
+    routes:
+      # This handles client-side routing (SPA)
+      - type: rewrite
+        source: /*
+        destination: /index.html
