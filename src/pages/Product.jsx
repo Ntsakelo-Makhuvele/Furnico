@@ -129,7 +129,7 @@ const Product = () => {
                            </table>
                         </div>
                         <div className="grid grid-cols-2 gap-4 mt-10">
-                           <button className="p-3 bg-gray-200 text-black cursor-pointer" onClick={addToCart}>Add To Cart</button>
+                           <button className="p-3 bg-gray-200 text-black cursor-pointer add_to_cart" onClick={addToCart}>Add To Cart</button>
                            <button className="p-3 bg-violet-500 text-white cursor-pointer">Buy Now</button>
                         </div>
                 </div>
