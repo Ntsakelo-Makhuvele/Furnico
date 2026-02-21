@@ -7,9 +7,21 @@ import Home from './pages/Home'
 import Product from './pages/Product'
 import Products from './pages/Products'
 import Cart from './pages/Cart'
-
+import { useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 
 function App() {
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // This tells Salesforce to re-evaluate the Sitemap for the new URL
+    if (window.SalesforceInteractions) {
+      SalesforceInteractions.reinit(); 
+    }
+  }, [pathname]);
+
+ 
   
 
   return (
