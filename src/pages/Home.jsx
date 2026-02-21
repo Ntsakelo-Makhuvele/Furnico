@@ -34,7 +34,7 @@ const Home = () => {
           {products && products.map((product) => (
 
             <div key={product.name}>
-                <Link to={`/product/${product.id}`}>
+                <a href={`/product/${product.id}`}>
                 <div className="h-60 bg-zinc-100 rounded-md">
                   <img src={`${product.image}`} alt={product.name} className='w-full h-full'/>
                 </div>
@@ -50,7 +50,7 @@ const Home = () => {
                   <p className="text-lg font-semibold text-left">R{product.price}</p>
                   </div>
                 </div>
-                </Link>
+                </a>
                   <div className="mt-5">
                     <button className='p-1 bg-black text-white rounded-full w-full block m-auto cursor-pointer'><ShoppingCartIcon className="size-6 inline-block relative bottom-0.5"/> Add To Cart</button>
                   </div>
