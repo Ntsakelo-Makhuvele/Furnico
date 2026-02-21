@@ -3,14 +3,26 @@ import Rating from '@mui/material/Rating';
 import Navbar from '../components/Navbar';
 import { products } from '../data/products';
 import { Link } from 'react-router-dom';
+import { useEffect,useState } from 'react';
 
 
 
 const Home = () => {
+   const [cartCount, setCartCount] = useState(0)
+       useEffect(() => {
+           if(localStorage.getItem('myCart')){
+               let count = 0;
+                 JSON.parse(localStorage.getItem('myCart')).forEach(item => {
+                 count += item.qty;
+              })
+              setCartCount(count);
+           }
+   
+       })
  
     return (
         <div className="bg-white">
-        <Navbar />          
+        <Navbar count={cartCount}/>          
       <div className="h-100 rounded-md mt-25 bg-indigo-100 content-carousel">
          
       </div>

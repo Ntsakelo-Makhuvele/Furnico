@@ -3,15 +3,84 @@ import Rating from '@mui/material/Rating';
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useParams } from "react-router-dom";
 import { products } from "../data/products";
+import { useState,useEffect } from "react";
 
 const Product = () => {
-    const params = useParams();
-    
-    const product = products.filter((product) => product.id === params.id);
+  const params = useParams();
+  const [cartCount, setCartCount] = useState(0);
+  const [param, setParam] = useState(params);
 
+       useEffect(() => {
+           if(localStorage.getItem('myCart')){
+               let count = 0;
+                 JSON.parse(localStorage.getItem('myCart')).forEach(item => {
+                 count += item.qty;
+              })
+              setCartCount(count);
+           }
+   
+       }); 
+  const product = products.filter((product) => product.id === params.id);
+
+
+    useEffect(() => {
+      window.dataLayer = window.dataLayer || {};
+      window.dataLayer = {
+        event: "view_item",
+        ecommerce: {
+          currency: "ZAR",
+          value: product[0].price,
+          items: [
+            {
+              item_id: product[0].id,
+              item_name: product[0].name,
+              price: product[0].price,
+              item_variant: product[0].color
+            }
+          ]
+        }
+      }
+
+    },[param])
+
+    const addToCart = () => {
+      if(localStorage.getItem('myCart')){
+         let cart = JSON.parse(localStorage.getItem('myCart'));
+         //setCartCount(cart.length);
+         const myItem = cart.filter(item => item.name === product[0].name);
+         if(myItem.length > 0){
+             myItem[0].qty++;
+             myItem[0].total = myItem[0].qty * myItem[0].price;
+             const updatedCart = cart.filter(item => item.id !== product[0].id);
+             localStorage.setItem('myCart', JSON.stringify([...updatedCart,myItem[0]]));
+             let count = 0;
+           JSON.parse(localStorage.getItem('myCart')).forEach(item => {
+              count += item.qty;
+           })
+           setCartCount(count);
+         }
+        else if(myItem.length <= 0){
+           cart.push({id:product[0].id,name:product[0].name,price:product[0].price,color:product[0].color,qty:1,total:product[0].price,image:product[0].image});
+           localStorage.setItem('myCart', JSON.stringify(cart));
+           let count = 0;
+           JSON.parse(localStorage.getItem('myCart')).forEach(item => {
+              count += item.qty;
+           })
+           setCartCount(count);
+      }
+      }else if(!localStorage.getItem('myCart')){
+           let cart = [];
+          cart.push({id:product[0].id,name:product[0].name,price:product[0].price,color:product[0].color,qty:1,total:product[0].price,image:product[0].image});
+          localStorage.setItem('myCart', JSON.stringify(cart));
+          let count = 0;
+           JSON.parse(localStorage.getItem('myCart')).forEach(item => {
+              count += item.qty;
+           })
+           setCartCount(count);
+      }
     window.dataLayer = window.dataLayer || {};
     window.dataLayer = {
-      event: "view_item",
+      event: "add_to_cart",
       ecommerce: {
         currency: "ZAR",
         value: product[0].price,
@@ -25,9 +94,10 @@ const Product = () => {
         ]
       }
     }
+    }
     return (
         <div>
-            <Navbar />
+            <Navbar count={cartCount}/>
             <div className="grid grid-cols-2 mt-25">
                 <div>
                     <div className="w-[300px] h-[300px] bg-zinc-100 m-auto rounded-md">
@@ -59,7 +129,7 @@ const Product = () => {
                            </table>
                         </div>
                         <div className="grid grid-cols-2 gap-4 mt-10">
-                           <button className="p-3 bg-gray-200 text-black cursor-pointer">Add To Cart</button>
+                           <button className="p-3 bg-gray-200 text-black cursor-pointer" onClick={addToCart}>Add To Cart</button>
                            <button className="p-3 bg-violet-500 text-white cursor-pointer">Buy Now</button>
                         </div>
                 </div>

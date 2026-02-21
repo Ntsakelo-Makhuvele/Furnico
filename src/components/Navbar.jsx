@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon,UserIcon } from '@heroicons/react/24/outline'
 import Badge from '@mui/material/Badge';
@@ -33,9 +33,21 @@ const navigation = [
 ]
 
 
-const Navbar = () => {
+const Navbar = ({count}) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [cartCount, setCartCount] = useState(count);
 
+    useEffect(() => {
+        if(localStorage.getItem('myCart')){
+           const cart = JSON.parse(localStorage.getItem('myCart'));
+           cart.forEach(item => {
+             let total = 0;
+             total += item.qty;
+             setCartCount(Number(total));
+           })
+        }
+
+    })
     return (
         <header className="absolute inset-x-0 top-0 z-50 fixed  top-0 bg-white border-b border-b-gray-300">
             <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
@@ -69,11 +81,13 @@ const Navbar = () => {
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                     <Link to="/login"><UserIcon className='size-6 relative top-1.5'/></Link>
                     <ThemeProvider theme={theme}>
+                        <Link to="/cart">
                         <IconButton aria-label="cart">
-                            <StyledBadge badgeContent={4} color="primary">
+                            <StyledBadge badgeContent={count} color="primary">
                                 <ShoppingCartIcon className="size-6 text-black" />
                             </StyledBadge>
                         </IconButton>
+                        </Link>
                     </ThemeProvider>
                 </div>
             </nav>
