@@ -86,7 +86,7 @@ const Login = () => {
                     </div>
                     {formik.touched.password && formik.errors.password && <p className='text-right text-red-500 pt-1'>Field required</p>}
                 </div>
-                <button type="submit" className='block mt-10 p-2 text-center w-full bg-violet-500 rounded-md text-white cursor-pointer'>SIGN IN</button>
+                <button type="submit" className='block mt-10 p-2 text-center w-full bg-violet-500 rounded-md text-white cursor-pointer sign_in'>SIGN IN</button>
                 <p className='text-center mt-2'>Don't have an account? <Link to="/register" className='underline'>Sign Up</Link></p>
 
                 </form>
