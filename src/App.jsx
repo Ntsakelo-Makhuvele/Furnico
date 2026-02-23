@@ -9,6 +9,9 @@ import Products from './pages/Products'
 import Cart from './pages/Cart'
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import Register from './pages/Register'
+import Login from './pages/Login'
+import Logout from './pages/Logout'
 
 function App() {
 
@@ -30,6 +33,9 @@ function App() {
       <Route path="/product/:id" element={<Product />} />
       <Route path="/products" element={<Products />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/logout" element={<Logout />} />
     </Routes>
   )
 }

@@ -7,6 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg'
+import {getAuth, onAuthStateChanged} from 'firebase/auth';
+import { app } from '../auth/authConfig';
 
 const theme = createTheme({
     palette: {
@@ -36,6 +38,15 @@ const navigation = [
 const Navbar = ({count}) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [cartCount, setCartCount] = useState(count);
+    const [isSignedIn,setIsSignedIn] = useState(false);
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        if(user){
+            setIsSignedIn(true)
+        }else{
+            setIsSignedIn(false);
+        }
+    })
 
     useEffect(() => {
         if(localStorage.getItem('myCart')){
@@ -79,6 +90,7 @@ const Navbar = ({count}) => {
                     ))}
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+                    {isSignedIn && <Link to="/logout" className='relative top-1.5 mr-3'>Sign Out</Link>}
                     <Link to="/login"><UserIcon className='size-6 relative top-1.5'/></Link>
                     <ThemeProvider theme={theme}>
                         <Link to="/cart">
