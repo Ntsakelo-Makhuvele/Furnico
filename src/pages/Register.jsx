@@ -30,7 +30,7 @@ const Register = () => {
                         if (userCredentials.user) {
                             window.mcpIdentity = window.mcpIdentity || {};
                             window.mcpIdentity = {
-                                emailAdress: userCredentials.user.email,
+                                emailAddress: userCredentials.user.email,
                                 customerId: userCredentials.user.uid
                             }
                             window.dataLayer = window.dataLayer || {};
