@@ -28,6 +28,11 @@ const Register = () => {
                 if (user) {
                     signInWithEmailAndPassword(auth, user.email, data.password).then((userCredentials) => {
                         if (userCredentials.user) {
+                            window.mcpIdentity = window.mcpIdentity || {};
+                            window.mcpIdentity = {
+                                emailAdress: userCredentials.user.email,
+                                customerId: userCredentials.user.uid
+                            }
                             window.dataLayer = window.dataLayer || {};
                             window.dataLayer = {
                                 event: "sign_up",
@@ -90,7 +95,7 @@ const Register = () => {
                         {formik.touched.password && formik.errors.password && <p className='text-right text-red-500 pt-1'>Field required</p>}
                     </div>
                     <button type="submit" className='block mt-10 p-2 text-center w-full bg-violet-500 rounded-md text-white cursor-pointer sign_up'>CREATE ACCOUNT</button>
-                    <p className='text-center mt-2'>Already have an account? <Link to="/login" className='underline'>Sign In</Link></p> 
+                    <p className='text-center mt-2'>Already have an account? <Link to="/login" className='underline'>Sign In</Link></p>
 
                 </form>
             </div>

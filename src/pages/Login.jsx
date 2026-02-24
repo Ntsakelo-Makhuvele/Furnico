@@ -27,6 +27,11 @@ const Login = () => {
          setMessage('');
           signInWithEmailAndPassword(auth, data.email, data.password).then((userCredentials) => {
             if(userCredentials){
+                window.mcpIdentity = window.mcpIdentity || {};
+                window.mcpIdentity = {
+                    emailAdress: userCredentials.user.email,
+                    customerId: userCredentials.user.uid
+                }
                 window.dataLayer = window.dataLayer || {};
                 window.dataLayer = {
                 event: "sign_in",
