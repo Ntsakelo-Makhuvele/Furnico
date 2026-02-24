@@ -8,7 +8,8 @@ import { useEffect,useState } from 'react';
 
 
 const Home = () => {
-   const [cartCount, setCartCount] = useState(0)
+   const [cartCount, setCartCount] = useState(0);
+   
        useEffect(() => {
            if(localStorage.getItem('myCart')){
                let count = 0;
