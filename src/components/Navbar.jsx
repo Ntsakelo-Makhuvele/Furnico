@@ -90,7 +90,7 @@ const Navbar = ({count}) => {
                     ))}
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    {isSignedIn && <Link to="/logout" className='relative top-1.5 mr-3'>Sign Out</Link>}
+                    {isSignedIn && <Link to="/logout" className='relative top-1.5 mr-3 sign_out'>Sign Out</Link>}
                     <Link to="/login"><UserIcon className='size-6 relative top-1.5'/></Link>
                     <ThemeProvider theme={theme}>
                         <Link to="/cart">
