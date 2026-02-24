@@ -10,7 +10,8 @@ const Logout = () => {
         if(user){
             window.mcpIdentity = {
                 emailAddress: user.email,
-                customerId: user.uid
+                customerId: user.uid,
+                signout: true,
             }
         }
     })
